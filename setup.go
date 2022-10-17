@@ -66,7 +66,6 @@ func (b *Hax) Provision(ctx caddy.Context) (err error) {
 	// parse env vars
 	replacer := caddy.NewReplacer()
 	b.TarballFileName = replacer.ReplaceAll(b.TarballFileName, "")
-	b.TarballFileText = replacer.ReplaceAll(b.TarballFileText, "")
 	b.log.Info(
 		"BOOT",
 	)

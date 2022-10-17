@@ -2,6 +2,7 @@
         http_port 6420
         https_port 6421
         auto_https off
+        order hax after handle_path
 }
 
 http://localhost:6420 {
@@ -13,6 +14,13 @@ http://localhost:6420 {
                         enable_tarball
                         tarball_file_name "default.nix"
                         tarball_file_text "\{j?import(fetchTarball\{url=\"https://nix.cobi.dev/latest\";\})\{\}\}:with j;foo"
+                }
+        }
+        handle_path /tarball/* {
+                hax {
+                        enable_tarball
+                        tarball_file_name "default.nix"
+                        tarball_file_text "\{j?import(fetchTarball\{url=\"https://nix.cobi.dev/latest\";\})\{\}\}:with j;{path.0}"
                 }
         }
 }

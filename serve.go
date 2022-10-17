@@ -18,12 +18,15 @@ func Tarball(b Hax, res http.ResponseWriter, req *http.Request) {
 	gzw := gzip.NewWriter(&buf)
 	tw := tar.NewWriter(gzw)
 
+	replacer := caddyhttp.NewTestReplacer(req)
+	text := replacer.ReplaceAll(b.TarballFileText, "")
+
 	header := new(tar.Header)
 	header.Name = b.TarballFileName
-	header.Size = int64(len(b.TarballFileText))
+	header.Size = int64(len(text))
 	header.Mode = int64(0755)
 	tw.WriteHeader(header)
-	tw.Write([]byte(b.TarballFileText))
+	tw.Write([]byte(text))
 
 	tw.Close()
 	gzw.Close()
