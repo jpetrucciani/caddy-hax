@@ -22,12 +22,12 @@ func init() {
 
 type Hax struct {
 	// options
-	EnableTarball bool `json:"enable_tarball"`
+	EnableTarball   bool   `json:"enable_tarball"`
 	TarballFileName string `json:"tarball_file_name"`
 	TarballFileText string `json:"tarball_file_text"`
 
 	// globals
-	log           *zap.Logger
+	log *zap.Logger
 }
 
 func (Hax) CaddyModule() caddy.ModuleInfo {

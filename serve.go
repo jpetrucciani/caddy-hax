@@ -1,23 +1,23 @@
 package hax
 
 import (
-    "bytes"
-	"net/http"
 	"archive/tar"
-    "compress/gzip"
+	"bytes"
+	"compress/gzip"
+	"net/http"
 
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
 	"go.uber.org/zap"
 )
 
-func Tarball(b Hax, res http.ResponseWriter, req *http.Request){
+func Tarball(b Hax, res http.ResponseWriter, req *http.Request) {
 	res.Header().Set("Content-Encoding", "gzip")
 	res.Header().Set("Content-Type", "application/tar+gzip")
 	var buf bytes.Buffer
-	
+
 	gzw := gzip.NewWriter(&buf)
 	tw := tar.NewWriter(gzw)
-	
+
 	header := new(tar.Header)
 	header.Name = b.TarballFileName
 	header.Size = int64(len(b.TarballFileText))
